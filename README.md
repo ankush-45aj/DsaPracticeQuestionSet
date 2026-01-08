@@ -1,10 +1,11 @@
-ÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂ»ÃÂÃÂÃÂÃÂ¿# DsaPracticeQuestionSet
+ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¯ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ»ÃÂÃÂÃÂÃÂÃÂÃÂÃÂÃÂ¿# DsaPracticeQuestionSet
 all question that i practice are solved here 
 <!---LeetCode Topics Start-->
 # LeetCode Topics
 ## Two Pointers
 |  |
 | ------- |
+| [0088-merge-sorted-array](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/0088-merge-sorted-array) |
 | [0125-valid-palindrome](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/0125-valid-palindrome) |
 | [0344-reverse-string](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/0344-reverse-string) |
 | [0680-valid-palindrome-ii](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/0680-valid-palindrome-ii) |
@@ -22,9 +23,11 @@ all question that i practice are solved here
 ## Array
 |  |
 | ------- |
+| [0088-merge-sorted-array](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/0088-merge-sorted-array) |
 | [1019-squares-of-a-sorted-array](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/1019-squares-of-a-sorted-array) |
 ## Sorting
 |  |
 | ------- |
+| [0088-merge-sorted-array](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/0088-merge-sorted-array) |
 | [1019-squares-of-a-sorted-array](https://github.com/ankush-45aj/DsaPracticeQuestionSet/tree/master/1019-squares-of-a-sorted-array) |
 <!---LeetCode Topics End-->
