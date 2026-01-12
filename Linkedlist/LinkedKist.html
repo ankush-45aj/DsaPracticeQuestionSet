@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linked List in Java - Comprehensive Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #1a2a6c);
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px 0;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 1s ease-out;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            color: #b21f1f;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .main-content {
+            flex: 3;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        .sidebar {
+            flex: 1;
+            background: rgba(255, 255, 255, 0.92);
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            align-self: flex-start;
+        }
+        
+        h2 {
+            color: #1a2a6c;
+            border-bottom: 3px solid #b21f1f;
+            padding-bottom: 10px;
+            margin: 25px 0 20px;
+            font-size: 2.2rem;
+        }
+        
+        h3 {
+            color: #b21f1f;
+            margin: 20px 0 15px;
+            font-size: 1.6rem;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            line-height: 1.7;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #1a2a6c;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+        
+        .code-comment {
+            color: #6a9955;
+        }
+        
+        .code-keyword {
+            color: #c586c0;
+        }
+        
+        .code-type {
+            color: #4ec9b0;
+        }
+        
+        .code-string {
+            color: #ce9178;
+        }
+        
+        .visualization {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
+            text-align: center;
+            border: 2px dashed #1a2a6c;
+        }
+        
+        .node {
+            display: inline-flex;
+            align-items: center;
+            margin: 10px;
+            position: relative;
+        }
+        
+        .data-box {
+            background: #1a2a6c;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: bold;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .pointer-box {
+            background: #b21f1f;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-left: 5px;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .pointer-arrow {
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #333;
+            font-size: 24px;
+        }
+        
+        .null-box {
+            background: #555;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-left: 5px;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .operation-panel {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            background: #1a2a6c;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn:hover {
+            background: #b21f1f;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .types-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .type-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+            border-top: 4px solid #1a2a6c;
+        }
+        
+        .type-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .type-card h4 {
+            color: #1a2a6c;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .comparison-table th, .comparison-table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .comparison-table th {
+            background: #1a2a6c;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        
+        .comparison-table tr:hover {
+            background: #e9ecef;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, rgba(178, 31, 31, 0.2), rgba(178, 31, 31, 0.2));
+            padding: 3px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                flex-direction: column;
+            }
+            
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Linked List in Java</h1>
+            <p class="subtitle">A Comprehensive Guide with Detailed Explanations and Visual Examples</p>
+        </header>
+        
+        <div class="content-wrapper">
+            <div class="main-content">
+                <section>
+                    <h2>What is a Linked List?</h2>
+                    <p>A linked list is a linear data structure where elements are not stored in contiguous memory locations. Instead, each element (called a node) contains:</p>
+                    <ul>
+                        <li>A <span class="highlight">data</span> field that stores the value</li>
+                        <li>A <span class="highlight">pointer/reference</span> to the next node in the sequence</li>
+                    </ul>
+                    
+                    <div class="card">
+                        <h3>Key Characteristics</h3>
+                        <p><strong>Dynamic Size:</strong> Unlike arrays, linked lists can grow and shrink during runtime.</p>
+                        <p><strong>Memory Efficiency:</strong> Memory is allocated as needed, reducing wasted space.</p>
+                        <p><strong>Insertion/Deletion Efficiency:</strong> Adding or removing elements at the beginning is O(1) time.</p>
+                    </div>
+                    
+                    <div class="visualization">
+                        <h3>Linked List Visualization</h3>
+                        <div class="node">
+                            <div class="data-box">10</div>
+                            <div class="pointer-box">→</div>
+                        </div>
+                        <div class="pointer-arrow">➔</div>
+                        <div class="node">
+                            <div class="data-box">20</div>
+                            <div class="pointer-box">→</div>
+                        </div>
+                        <div class="pointer-arrow">➔</div>
+                        <div class="node">
+                            <div class="data-box">30</div>
+                            <div class="pointer-box">→</div>
+                        </div>
+                        <div class="pointer-arrow">➔</div>
+                        <div class="node">
+                            <div class="data-box">40</div>
+                            <div class="null-box">null</div>
+                        </div>
+                        
+                        <div class="operation-panel">
+                            <button class="btn" onclick="addNode()">Add Node</button>
+                            <button class="btn" onclick="removeNode()">Remove Node</button>
+                            <button class="btn" onclick="resetList()">Reset List</button>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Types of Linked Lists</h2>
+                    <div class="types-container">
+                        <div class="type-card">
+                            <h4>Singly Linked List</h4>
+                            <p>Each node contains data and a pointer to the next node. Traversal is only in one direction.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">class</span> <span class="code-type">Node</span> {<br>
+                                &nbsp;&nbsp;<span class="code-type">int</span> data;<br>
+                                &nbsp;&nbsp;<span class="code-type">Node</span> next;<br>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="type-card">
+                            <h4>Doubly Linked List</h4>
+                            <p>Each node contains data, a pointer to the next node, and a pointer to the previous node.</p>
+                            <div class="code-block">
+                                <span class="code-keyword">class</span> <span class="code-type">Node</span> {<br>
+                                &nbsp;&nbsp;<span class="code-type">int</span> data;<br>
+                                &nbsp;&nbsp;<span class="code-type">Node</span> next;<br>
+                                &nbsp;&nbsp;<span class="code-type">Node</span> prev;<br>
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="type-card">
+                            <h4>Circular Linked List</h4>
+                            <p>The last node points back to the first node, forming a circle. Can be singly or doubly linked.</p>
+                            <div class="code-block">
+                                <span class="code-comment">// Last node points to head</span><br>
+                                tail.next = head;
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Implementing a Singly Linked List in Java</h2>
+                    <p>Here's a complete implementation of a singly linked list in Java:</p>
+                    
+                    <div class="code-block">
+                        <span class="code-comment">// Node class definition</span><br>
+                        <span class="code-keyword">class</span> <span class="code-type">Node</span> {<br>
+                        &nbsp;&nbsp;<span class="code-keyword">int</span> data;<br>
+                        &nbsp;&nbsp;<span class="code-type">Node</span> next;<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="code-comment">// Constructor to create a new node</span><br>
+                        &nbsp;&nbsp;<span class="code-type">Node</span>(<span class="code-keyword">int</span> d) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;data = d;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;next = <span class="code-keyword">null</span>;<br>
+                        &nbsp;&nbsp;}<br>
+                        }<br>
+                        <br>
+                        <span class="code-comment">// Linked list class</span><br>
+                        <span class="code-keyword">class</span> <span class="code-type">LinkedList</span> {<br>
+                        &nbsp;&nbsp;<span class="code-type">Node</span> head; <span class="code-comment">// head of list</span><br>
+                        <br>
+                        &nbsp;&nbsp;<span class="code-comment">// Insert new node at the beginning</span><br>
+                        &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-keyword">void</span> insertAtBeginning(<span class="code-keyword">int</span> data) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Node</span> newNode = <span class="code-keyword">new</span> <span class="code-type">Node</span>(data);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;newNode.next = head;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;head = newNode;<br>
+                        &nbsp;&nbsp;}<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="code-comment">// Insert new node at the end</span><br>
+                        &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-keyword">void</span> insertAtEnd(<span class="code-keyword">int</span> data) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Node</span> newNode = <span class="code-keyword">new</span> <span class="code-type">Node</span>(data);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> (head == <span class="code-keyword">null</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;head = newNode;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Node</span> last = head;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> (last.next != <span class="code-keyword">null</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;last = last.next;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;last.next = newNode;<br>
+                        &nbsp;&nbsp;}<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="code-comment">// Delete a node by key</span><br>
+                        &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-keyword">void</span> deleteNode(<span class="code-keyword">int</span> key) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Node</span> temp = head, prev = <span class="code-keyword">null</span>;<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// If head node itself holds the key</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> (temp != <span class="code-keyword">null</span> && temp.data == key) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;head = temp.next; <span class="code-comment">// Changed head</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">return</span>;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Search for the key to be deleted</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> (temp != <span class="code-keyword">null</span> && temp.data != key) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;prev = temp;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temp = temp.next;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// If key was not present in list</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">if</span> (temp == <span class="code-keyword">null</span>) <span class="code-keyword">return</span>;<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-comment">// Unlink the node from linked list</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;prev.next = temp.next;<br>
+                        &nbsp;&nbsp;}<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="code-comment">// Print the linked list</span><br>
+                        &nbsp;&nbsp;<span class="code-keyword">public</span> <span class="code-keyword">void</span> printList() {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">Node</span> temp = head;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">while</span> (temp != <span class="code-keyword">null</span>) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">System</span>.out.print(temp.data + <span class="code-string">" -> "</span>);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;temp = temp.next;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-type">System</span>.out.println(<span class="code-string">"null"</span>);<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                </section>
+                
+                <section>
+                    <h2>Operations and Time Complexity</h2>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Operation</th>
+                            <th>Description</th>
+                            <th>Time Complexity</th>
+                        </tr>
+                        <tr>
+                            <td>Insertion at beginning</td>
+                            <td>Add a node at the start of the list</td>
+                            <td>O(1)</td>
+                        </tr>
+                        <tr>
+                            <td>Insertion at end</td>
+                            <td>Add a node at the end of the list</td>
+                            <td>O(n) - without tail pointer</td>
+                        </tr>
+                        <tr>
+                            <td>Insertion at position</td>
+                            <td>Add a node at a specific position</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Deletion at beginning</td>
+                            <td>Remove the first node</td>
+                            <td>O(1)</td>
+                        </tr>
+                        <tr>
+                            <td>Deletion at end</td>
+                            <td>Remove the last node</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Deletion by value</td>
+                            <td>Remove a node with specific value</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Search</td>
+                            <td>Find a node with specific value</td>
+                            <td>O(n)</td>
+                        </tr>
+                        <tr>
+                            <td>Access by index</td>
+                            <td>Get the node at a specific position</td>
+                            <td>O(n)</td>
+                        </tr>
+                    </table>
+                </section>
+                
+                <section>
+                    <h2>When to Use Linked Lists</h2>
+                    <div class="card">
+                        <h3>Advantages</h3>
+                        <p><strong>Dynamic Size:</strong> No need to pre-allocate memory</p>
+                        <p><strong>Efficient Insertions/Deletions:</strong> Especially at the beginning</p>
+                        <p><strong>Memory Usage:</strong> Allocates memory as needed</p>
+                        <p><strong>Implementation Flexibility:</strong> Foundation for stacks, queues, etc.</p>
+                    </div>
+                    
+                    <div class="card">
+                        <h3>Disadvantages</h3>
+                        <p><strong>Random Access:</strong> No direct access to elements (must traverse)</p>
+                        <p><strong>Memory Overhead:</strong> Extra memory for pointers</p>
+                        <p><strong>Cache Performance:</strong> Poor locality of reference</p>
+                        <p><strong>Reverse Traversal:</strong> Difficult in singly linked lists</p>
+                    </div>
+                    
+                    <div class="card pulse">
+                        <h3>Linked Lists vs Arrays</h3>
+                        <p>Use linked lists when:</p>
+                        <ul>
+                            <li>You need constant-time insertions/deletions at the beginning</li>
+                            <li>The size is unknown and changes frequently</li>
+                            <li>You don't need random access to elements</li>
+                        </ul>
+                        <p>Use arrays when:</p>
+                        <ul>
+                            <li>You need random access to elements</li>
+                            <li>You know the number of elements in advance</li>
+                            <li>Memory is a critical concern</li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="sidebar">
+                <h2>Key Concepts</h2>
+                <div class="card">
+                    <h3>Head Pointer</h3>
+                    <p>The reference to the first node in the list. Crucial for accessing the entire list.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Node Structure</h3>
+                    <p>Each node contains data and a pointer to the next node. The last node points to null.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Traversal</h3>
+                    <p>Process of visiting each node starting from the head until reaching null.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Memory Allocation</h3>
+                    <p>Nodes are dynamically allocated in memory, which can be non-contiguous.</p>
+                </div>
+                
+                <h2>Common Use Cases</h2>
+                <div class="card">
+                    <h3>Implementing Stacks</h3>
+                    <p>LIFO (Last-In-First-Out) structure with push/pop operations at head.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Implementing Queues</h3>
+                    <p>FIFO (First-In-First-Out) structure with enqueue at tail and dequeue at head.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Undo Functionality</h3>
+                    <p>Maintaining a history of operations where the most recent is at the head.</p>
+                </div>
+                
+                <div class="card">
+                    <h3>Polynomial Representation</h3>
+                    <p>Each node represents a term in a polynomial equation.</p>
+                </div>
+                
+                <h2>Java Collections</h2>
+                <div class="card">
+                    <p>Java provides a built-in LinkedList class in java.util package:</p>
+                    <div class="code-block">
+                        <span class="code-comment">// Import the LinkedList class</span><br>
+                        <span class="code-keyword">import</span> java.util.LinkedList;<br>
+                        <br>
+                        <span class="code-comment">// Create a LinkedList</span><br>
+                        LinkedList&lt;String&gt; list = <span class="code-keyword">new</span> LinkedList&lt;&gt;();<br>
+                        <br>
+                        <span class="code-comment">// Add elements</span><br>
+                        list.add(<span class="code-string">"A"</span>);<br>
+                        list.addFirst(<span class="code-string">"B"</span>);<br>
+                        list.addLast(<span class="code-string">"C"</span>);<br>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <footer>
+            <p>© 2023 Java Data Structures Guide | Linked List Implementation and Examples</p>
+            <p>Master linked lists to build efficient and dynamic data structures in Java!</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple interactive visualization
+        let nodeCount = 4;
+        
+        function addNode() {
+            if (nodeCount < 8) {
+                const visualization = document.querySelector('.visualization');
+                const newNode = document.createElement('div');
+                newNode.className = 'node';
+                newNode.innerHTML = `
+                    <div class="data-box">${(nodeCount + 1) * 10}</div>
+                    <div class="pointer-box">→</div>
+                `;
+                visualization.insertBefore(newNode, document.querySelector('.operation-panel'));
+                nodeCount++;
+            }
+        }
+        
+        function removeNode() {
+            if (nodeCount > 2) {
+                const nodes = document.querySelectorAll('.node');
+                if (nodes.length > 2) {
+                    nodes[nodes.length - 1].remove();
+                    nodeCount--;
+                }
+            }
+        }
+        
+        function resetList() {
+            const visualization = document.querySelector('.visualization');
+            const nodes = document.querySelectorAll('.node');
+            const operationPanel = document.querySelector('.operation-panel');
+            
+            // Remove all nodes except the first four
+            nodes.forEach((node, index) => {
+                if (index > 3) {
+                    node.remove();
+                }
+            });
+            
+            // Reset to initial state
+            nodeCount = 4;
+        }
+    </script>
+</body>
+</html>
